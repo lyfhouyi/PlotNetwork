@@ -1,0 +1,331 @@
+
+\documentclass[border=8pt, multi, tikz]{standalone} 
+\usepackage{import}
+\subimport{../../layers/}{init}
+\usetikzlibrary{positioning}
+\usetikzlibrary{3d} %for including external image 
+
+\def\ConvColor{rgb:yellow,5;red,2.5;white,5}
+\def\ConvReluColor{rgb:yellow,5;red,5;white,5}
+\def\PoolColor{rgb:red,1;black,0.3}
+\def\UnpoolColor{rgb:blue,2;green,1;black,0.3}
+\def\FcColor{rgb:blue,5;red,2.5;white,5}
+\def\FcReluColor{rgb:blue,5;red,5;white,4}
+\def\SoftmaxColor{rgb:magenta,10;black,7}   
+\def\SumColor{rgb:blue,5;green,15}
+
+\newcommand{\copymidarrow}{\tikz \draw[-Stealth,line width=0.8mm,draw={rgb:blue,4;red,1;green,1;black,3}] (-0.3,0) -- ++(0.3,0);}
+
+\begin{document}
+\begin{tikzpicture}
+\tikzstyle{connection}=[ultra thick,every node/.style={sloped,allow upside down},draw=\edgecolor,opacity=0.7]
+\tikzstyle{copyconnection}=[ultra thick,every node/.style={sloped,allow upside down},draw={rgb:blue,4;red,1;green,1;black,3},opacity=0.7]
+
+\pic[shift={(0,0,0)}] at (0,0,0) 
+    {Box={
+        name=input,
+        caption=input,
+        xlabel=3,
+        ylabel=32,
+        zlabel=32,
+        fill=\ConvColor,
+        height=32,
+        width=3,
+        depth=32
+        }
+    };
+
+\node[canvas is zy plane at x=0] (temp) at (input-east) {\includegraphics[width=6cm,height=6cm]{eeg.jpg}};
+
+\pic[shift={(3,0,0)}] at (input-east) 
+    {RightBandedBox={
+        name=conv1,
+        caption=conv1,
+        xlabel=6,
+        ylabel=28,
+        zlabel=28,
+        fill=\ConvColor,
+        bandfill=\ConvReluColor,
+        height=28,
+        width=6,
+        depth=28
+        }
+    };
+
+\draw [connection]  (input-east)    -- node {\midarrow} (conv1-west);
+
+\pic[shift={ (0,0,0) }] at (conv1-east) 
+    {Box={
+        name=pool1,
+        caption=AvgPool,
+        xlabel=6,
+        ylabel=14,
+        zlabel=14,    
+        fill=\PoolColor,
+        opacity=0.5,
+        height=14,
+        width=6,
+        depth=14
+        }
+    };
+
+\pic[shift={(2,0,0)}] at (pool1-east) 
+    {RightBandedBox={
+        name=conv2,
+        caption=conv2,
+        xlabel=8,
+        ylabel=10,
+        zlabel=10,
+        fill=\ConvColor,
+        bandfill=\ConvReluColor,
+        height=10,
+        width=8,
+        depth=10
+        }
+    };
+
+\draw [connection]  (pool1-east)    -- node {\midarrow} (conv2-west);
+
+\pic[shift={ (0,0,0) }] at (conv2-east) 
+    {Box={
+        name=pool21,
+        caption=AvgPool,
+        xlabel=8,
+        ylabel=5,
+        zlabel=5,    
+        fill=\PoolColor,
+        opacity=0.5,
+        height=5,
+        width=8,
+        depth=5
+        }
+    };
+
+\pic[shift={(0,-10,0)}] at (0,0,0) 
+    {Box={
+        name=input,
+        caption=input,
+        xlabel=3,
+        ylabel=32,
+        zlabel=32,
+        fill=\ConvColor,
+        height=32,
+        width=3,
+        depth=32
+        }
+    };
+
+\node[canvas is zy plane at x=0] (temp) at (input-east) {\includegraphics[width=6cm,height=6cm]{eeg.jpg}};
+
+\pic[shift={(3,0,0)}] at (input-east) 
+    {RightBandedBox={
+        name=conv12,
+        caption=conv1,
+        xlabel=6,
+        ylabel=28,
+        zlabel=28,
+        fill=\ConvColor,
+        bandfill=\ConvReluColor,
+        height=28,
+        width=6,
+        depth=28
+        }
+    };
+
+\draw [connection]  (input-east)    -- node {\midarrow} (conv12-west);
+
+\pic[shift={ (0,0,0) }] at (conv12-east) 
+    {Box={
+        name=pool1,
+        caption=AvgPool,
+        xlabel=6,
+        ylabel=14,
+        zlabel=14,    
+        fill=\PoolColor,
+        opacity=0.5,
+        height=14,
+        width=6,
+        depth=14
+        }
+    };
+
+\pic[shift={(2,0,0)}] at (pool1-east) 
+    {RightBandedBox={
+        name=conv2,
+        caption=conv2,
+        xlabel=8,
+        ylabel=10,
+        zlabel=10,
+        fill=\ConvColor,
+        bandfill=\ConvReluColor,
+        height=10,
+        width=8,
+        depth=10
+        }
+    };
+
+\draw [connection]  (pool1-east)    -- node {\midarrow} (conv2-west);
+
+\pic[shift={ (0,0,0) }] at (conv2-east) 
+    {Box={
+        name=pool22,
+        caption=AvgPool,
+        xlabel=8,
+        ylabel=5,
+        zlabel=5,    
+        fill=\PoolColor,
+        opacity=0.5,
+        height=5,
+        width=8,
+        depth=5
+        }
+    };
+
+\pic[shift={(0,-25,0)}] at (0,0,0) 
+    {Box={
+        name=input,
+        caption=input,
+        xlabel=3,
+        ylabel=32,
+        zlabel=32,
+        fill=\ConvColor,
+        height=32,
+        width=3,
+        depth=32
+        }
+    };
+
+\node[canvas is zy plane at x=0] (temp) at (input-east) {\includegraphics[width=6cm,height=6cm]{eeg.jpg}};
+
+\pic[shift={(3,0,0)}] at (input-east) 
+    {RightBandedBox={
+        name=conv17,
+        caption=conv1,
+        xlabel=6,
+        ylabel=28,
+        zlabel=28,
+        fill=\ConvColor,
+        bandfill=\ConvReluColor,
+        height=28,
+        width=6,
+        depth=28
+        }
+    };
+
+\draw [connection]  (input-east)    -- node {\midarrow} (conv17-west);
+
+\pic[shift={ (0,0,0) }] at (conv17-east) 
+    {Box={
+        name=pool1,
+        caption=AvgPool,
+        xlabel=6,
+        ylabel=14,
+        zlabel=14,    
+        fill=\PoolColor,
+        opacity=0.5,
+        height=14,
+        width=6,
+        depth=14
+        }
+    };
+
+\pic[shift={(2,0,0)}] at (pool1-east) 
+    {RightBandedBox={
+        name=conv2,
+        caption=conv2,
+        xlabel=8,
+        ylabel=10,
+        zlabel=10,
+        fill=\ConvColor,
+        bandfill=\ConvReluColor,
+        height=10,
+        width=8,
+        depth=10
+        }
+    };
+
+\draw [connection]  (pool1-east)    -- node {\midarrow} (conv2-west);
+
+\pic[shift={ (0,0,0) }] at (conv2-east) 
+    {Box={
+        name=pool27,
+        caption=AvgPool,
+        xlabel=8,
+        ylabel=5,
+        zlabel=5,    
+        fill=\PoolColor,
+        opacity=0.5,
+        height=5,
+        width=8,
+        depth=5
+        }
+    };
+
+\pic[shift={(10,10,0)}] at (pool27-east) 
+    {Ball={
+        name=sum,
+        fill=\SumColor,
+        opacity=0.6,
+        radius=2.5,
+        logo=$+$
+        }
+    };
+
+\draw [connection]  (pool21-east)    -- node {\midarrow} (sum-west);
+
+\draw [connection]  (pool22-east)    -- node {\midarrow} (sum-west);
+
+\draw [connection]  (pool27-east)    -- node {\midarrow} (sum-west);
+
+\pic[shift={ (3,0,0) }] at (sum-east) 
+    {Box={
+        name=cascade,
+        caption=cascade,
+        xlabel=1,
+        ylabel=1,
+        zlabel=1400,
+        fill=\FcColor,
+        height=2.5,
+        width=2.5,
+        depth=280
+        }
+    };
+
+\draw [connection]  (sum-east)    -- node {\midarrow} (cascade-west);
+
+\pic[shift={ (3,0,0) }] at (cascade-east) 
+    {RightBandedBox={
+        name=fc1,
+        caption=fc1,
+        xlabel=1,
+        ylabel=1,
+        zlabel=64,
+        fill=\FcColor,
+        bandfill=\FcReluColor,
+        height=2,
+        width=2,
+        depth=64
+        }
+    };
+
+\draw [connection]  (cascade-east)    -- node {\midarrow} (fc1-west);
+
+\pic[shift={(3,0,0)}] at (fc1-east) 
+    {Box={
+        name=softMax,
+        caption=SoftMax,
+        xlabel=1,
+        ylabel=1,
+        zlabel=4,
+        fill=\SoftmaxColor,
+        opacity=0.5,
+        height=1,
+        width=1,
+        depth=4
+        }
+    };
+
+\draw [connection]  (fc1-east)    -- node {\midarrow} (softMax-west);
+
+\end{tikzpicture}
+\end{document}
