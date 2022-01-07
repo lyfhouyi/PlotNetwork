@@ -1,6 +1,6 @@
 
 import sys
-sys.path.append(r'C:\Users\Monkey.E\Desktop\git\PlotNeuralNet')
+sys.path.append(r'C:\Users\lyfhouyi\Desktop\git\plot-network')
 from pycore.tikzeng import *
 
 def draw_Net4():
@@ -161,5 +161,38 @@ def draw_Net42():
     to_generate(arch, os.getcwd()+'\\draw_houyi\\Net42\\Net42.tex' )
     # end draw_Net42
 
+def draw_Net45():
+    arch = [
+        to_head( '..' ),
+        to_cor(),
+        to_begin(),
+
+        # 第一帧
+        to_Conv("input", 224, 1,1, offset="(0,0,0)", to="(0,0,0)", height=112, depth=6, width=6,caption='input'),
+        
+        to_FcRelu("fc1", 1024, 1,1, offset="(3,0,0)", to="(input-east)", height=325, depth=6, width=6,caption='fc1'),
+        to_connection( "input", "fc1"), 
+            
+        to_FcRelu("fc2", 1024, 1,1, offset="(3,0,0)", to="(fc1-east)", height=325, depth=6, width=6,caption='fc2'),
+        to_connection( "fc1", "fc2"), 
+        
+        to_FcRelu("fc3", 256, 1,1, offset="(3,0,0)", to="(fc2-east)", height=128, depth=6, width=6,caption='fc3'),
+        to_connection( "fc2", "fc3"), 
+    
+        to_FcRelu("fc4", 64, 1,1, offset="(3,0,0)", to="(fc3-east)", height=30, depth=6, width=6,caption='fc4'),
+        to_connection( "fc3", "fc4"), 
+
+        to_FcRelu("fc5", 16, 1,1, offset="(3,0,0)", to="(fc4-east)", height=16, depth=4, width=4,caption='fc5'),
+        to_connection( "fc4", "fc5"), 
+        
+        to_SoftMax("softMax", 4 ,1,1, offset="(3,0,0)", to="(fc5-east)", height=6, depth=2, width=2, caption="SoftMax"  ),
+        to_connection( "fc5", "softMax"), 
+
+        to_end()
+        ]
+    to_generate(arch, os.getcwd()+'\\draw_houyi\\Net45\\Net45.tex' )
+    # end draw_Net45
+
 # draw_Net4()
-draw_Net42()
+# draw_Net42()
+draw_Net45()
