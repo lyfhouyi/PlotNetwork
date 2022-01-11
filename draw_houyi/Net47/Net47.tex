@@ -491,7 +491,47 @@
 
 \draw [connection]  (node72-north)    -- node {\midarrow} (node73-south);
 
-\pic[shift={(0,10,0)}] at (node73-north) 
+\pic[shift={(0,20,0)}] at (node43-north) 
+    {Ball={
+        name=sum,
+        fill=\SumColor,
+        opacity=0.6,
+        radius=2.5,
+        logo=$+$
+        }
+    };
+
+\draw [connection]  (node13-north)    -- node {\midarrow} (sum-south);
+
+\draw [connection]  (node23-north)    -- node {\midarrow} (sum-south);
+
+\draw [connection]  (node33-north)    -- node {\midarrow} (sum-south);
+
+\draw [connection]  (node43-north)    -- node {\midarrow} (sum-south);
+
+\draw [connection]  (node53-north)    -- node {\midarrow} (sum-south);
+
+\draw [connection]  (node63-north)    -- node {\midarrow} (sum-south);
+
+\draw [connection]  (node73-north)    -- node {\midarrow} (sum-south);
+
+\pic[shift={ (0,10,0) }] at (sum-north) 
+    {Box={
+        name=cascade,
+        caption=cascade,
+        xlabel=1,
+        ylabel=1,
+        zlabel=112,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=112
+        }
+    };
+
+\draw [connection]  (sum-north)    -- node {\midarrow} (cascade-south);
+
+\pic[shift={(0,10,0)}] at (cascade-north) 
     {Box={
         name=softMax,
         caption=SoftMax,
@@ -506,7 +546,7 @@
         }
     };
 
-\draw [connection]  (node73-north)    -- node {\midarrow} (softMax-south);
+\draw [connection]  (cascade-north)    -- node {\midarrow} (softMax-south);
 
 \end{tikzpicture}
 \end{document}

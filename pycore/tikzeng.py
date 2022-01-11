@@ -243,9 +243,9 @@ def to_ellipsis( of, to):
 \draw [connection]  ("""+of+"""-south)    --++ node {\midarrow} ("""+to+"""-north);
 """
 
-def to_connection( of, to):
+def to_connection( of, to,dirOf='east',dirTo='west'):
     return r"""
-\draw [connection]  ("""+of+"""-east)    -- node {\midarrow} ("""+to+"""-west);
+\draw [connection]  ("""+of+"""-"""+dirOf+""")    -- node {\midarrow} ("""+to+"""-"""+dirTo+""");
 """
 
 def to_skip( of, to, pos=1.25):
