@@ -405,5 +405,5 @@ def draw_Net47():
 # draw_Net4()
 # draw_Net42()
 # draw_Net45()
-# draw_Net46()
-# draw_Net47()
+draw_Net46()
+draw_Net47()
