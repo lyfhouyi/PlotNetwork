@@ -402,8 +402,213 @@ def draw_Net47():
     # end draw_Net47
 
 
+
+def draw_Net48():
+    arch = [
+        to_head( '..' ),
+        to_cor(),
+        to_begin(),
+
+        # 第一帧
+        # CNN 模块
+        to_Conv("input", 32, 32,3, offset="(0,0,0)", to="(0,0,0)", height=32, depth=32, width=3,caption='input'),
+        to_input( 'eeg.jpg', to='(input-east)', width=6, height=6),
+        
+        to_ConvRelu("conv1", 28, 28,6, offset="(3,0,0)", to="(input-east)", height=28, depth=28, width=6,caption='conv1'),
+        to_connection( "input", "conv1"), 
+        to_Pool("pool1", 14, 14,6,offset="(0,0,0)", to="(conv1-east)",height=14, depth=14, width=6,caption="AvgPool"),
+            
+        to_ConvRelu("conv2", 10, 10,8, offset="(2,0,0)", to="(pool1-east)", height=10, depth=10, width=8,caption='conv2'),
+        to_connection( "pool1", "conv2"), 
+        to_Pool("pool21", 5, 5,8,offset="(0,0,0)", to="(conv2-east)",height=5, depth=5, width=8,caption="AvgPool"),
+        # LSTM 模块
+        to_Conv("input1", 1, 200,1, offset="(5,0,0)", to="(pool21-east)", height=2.5, depth=100, width=2.5,caption='frame1'),
+        to_Cascade("node11", 1, 16,1, offset="(6,0,0)", to="(input1-east)", height=2.5, depth=8, width=2.5,caption=''),
+        to_Cascade("node21", 1, 16,1, offset="(3,0,0)", to="(node11-east)", height=2.5, depth=8, width=2.5,caption=''),
+        to_Cascade("node31", 1, 16,1, offset="(3,0,0)", to="(node21-east)", height=2.5, depth=8, width=2.5,caption=''),
+        
+        to_connection( "pool21", "input1"), 
+        to_connection( "input1", "node11"), 
+        to_connection( "node11", "node21"), 
+        to_connection( "node21", "node31"), 
+
+
+        # 第二帧
+        # CNN 模块
+        to_Conv("input", 32, 32,3, offset="(0,-10,0)", to="(0,0,0)", height=32, depth=32, width=3,caption='input'),
+        to_input( 'eeg.jpg', to='(input-east)', width=6, height=6),
+
+        to_ConvRelu("conv12", 28, 28,6, offset="(3,0,0)", to="(input-east)", height=28, depth=28, width=6,caption='conv1'),
+        to_connection( "input", "conv12"), 
+        to_Pool("pool1", 14, 14,6,offset="(0,0,0)", to="(conv12-east)",height=14, depth=14, width=6,caption="AvgPool"),
+            
+        to_ConvRelu("conv2", 10, 10,8, offset="(2,0,0)", to="(pool1-east)", height=10, depth=10, width=8,caption='conv2'),
+        to_connection( "pool1", "conv2"), 
+        to_Pool("pool22", 5, 5,8,offset="(0,0,0)", to="(conv2-east)",height=5, depth=5, width=8,caption="AvgPool"),
+        # LSTM 模块
+        to_Conv("input2", 1, 200,1, offset="(5,0,0)", to="(pool22-east)", height=2.5, depth=100, width=2.5,caption='frame1'),
+        to_Cascade("node12", 1, 16,1, offset="(6,0,0)", to="(input2-east)", height=2.5, depth=8, width=2.5,caption=''),
+        to_Cascade("node22", 1, 16,1, offset="(3,0,0)", to="(node12-east)", height=2.5, depth=8, width=2.5,caption=''),
+        to_Cascade("node32", 1, 16,1, offset="(3,0,0)", to="(node22-east)", height=2.5, depth=8, width=2.5,caption=''),
+        
+        to_connection( "pool22", "input2"), 
+        to_connection( "input2", "node12"), 
+        to_connection( "node12", "node22"), 
+        to_connection( "node22", "node32"), 
+        
+        to_transNode("transNode11",offset="(0,-4,0)", to="(node12-south)"),
+        to_transNode("transNode21",offset="(0,-4,0)", to="(node22-south)"),
+        to_transNode("transNode31",offset="(0,-4,0)", to="(node32-south)"),
+
+        to_connection( "node11", "node12","south","north"), 
+        to_connection( "node21", "node22","south","north"), 
+        to_connection( "node31", "node32","south","north"), 
+
+        to_connection( "node12", "transNode11","south","north"), 
+        to_connection( "node22", "transNode21","south","north"), 
+        to_connection( "node32", "transNode31","south","north"), 
+
+
+        # 第七帧
+        # CNN 模块
+        to_Conv("input", 32, 32,3, offset="(0,-25,0)", to="(0,0,0)", height=32, depth=32, width=3,caption='input'),
+        to_input( 'eeg.jpg', to='(input-east)', width=6, height=6),
+        
+        to_ConvRelu("conv17", 28, 28,6, offset="(3,0,0)", to="(input-east)", height=28, depth=28, width=6,caption='conv1'),
+        to_connection( "input", "conv17"), 
+        to_Pool("pool1", 14, 14,6,offset="(0,0,0)", to="(conv17-east)",height=14, depth=14, width=6,caption="AvgPool"),
+        
+        to_ConvRelu("conv2", 10, 10,8, offset="(2,0,0)", to="(pool1-east)", height=10, depth=10, width=8,caption='conv2'),
+        to_connection( "pool1", "conv2"), 
+        to_Pool("pool27", 5, 5,8,offset="(0,0,0)", to="(conv2-east)",height=5, depth=5, width=8,caption="AvgPool"),
+        # LSTM 模块
+        to_Conv("input7", 1, 200,1, offset="(5,0,0)", to="(pool27-east)", height=2.5, depth=100, width=2.5,caption='frame1'),
+        to_Cascade("node17", 1, 16,1, offset="(6,0,0)", to="(input7-east)", height=2.5, depth=8, width=2.5,caption=''),
+        to_Cascade("node27", 1, 16,1, offset="(3,0,0)", to="(node17-east)", height=2.5, depth=8, width=2.5,caption=''),
+        to_Cascade("node37", 1, 16,1, offset="(3,0,0)", to="(node27-east)", height=2.5, depth=8, width=2.5,caption=''),
+        
+        to_connection( "pool27", "input7"), 
+        to_connection( "input7", "node17"), 
+        to_connection( "node17", "node27"), 
+        to_connection( "node27", "node37"),        
+       
+        to_transNode("transNode12", offset="(0,4,0)", to="(node17-south)"),
+        to_transNode("transNode22", offset="(0,4,0)", to="(node27-south)"),
+        to_transNode("transNode32", offset="(0,4,0)", to="(node37-south)"),
+        
+        to_connection( "transNode12", "node17","south","north"), 
+        to_connection( "transNode22", "node27","south","north"), 
+        to_connection( "transNode32", "node37","south","north"), 
+
+        # # 省略号
+        # to_ellipsis( "conv12", "conv17"),
+
+        # 全连接层
+        to_SoftMax("softMax", 1 ,4,1, offset="(3,0,0)", to="(node37-east)", height=2, depth=5, width=2, caption="SoftMax"  ),
+        to_connection( "node37", "softMax"), 
+
+        to_end()
+        ]
+    to_generate(arch, os.getcwd()+'\\draw_houyi\\Net48\\Net48.tex' )
+    # end draw_Net48
+
+
+def draw_Net49():
+    arch = [
+        to_head( '..' ),
+        to_cor(),
+        to_begin(),
+
+        # 第一帧
+        to_Conv("input", 32, 96,3, offset="(0,0,0)", to="(0,0,0)", height=32, depth=96, width=3,caption='input'),
+        to_input( 'eeg.jpg', to='(input-east)', width=18, height=6),
+        
+        to_ConvRelu("conv1", 28, 82,6, offset="(3,0,0)", to="(input-east)", height=28, depth=82, width=6,caption='conv1'),
+        to_connection( "input", "conv1"), 
+        to_Pool("pool1", 14, 40,6,offset="(0,0,0)", to="(conv1-east)",height=14, depth=40, width=6,caption="MaxPool"),
+            
+        to_ConvRelu("conv2", 10, 26,8, offset="(3,0,0)", to="(pool1-east)", height=10, depth=26, width=8,caption='conv2'),
+        to_connection( "pool1", "conv2"), 
+        to_Pool("pool2", 5, 12,8,offset="(0,0,0)", to="(conv2-east)",height=5, depth=12, width=8,caption="MaxPool"),
+        
+        to_ConvRelu("conv3", 5, 12,8, offset="(2,0,0)", to="(pool2-east)", height=5, depth=12, width=8,caption='conv3'),
+        to_connection( "pool2", "conv3"), 
+        to_Pool("pool31", 2, 4,8,offset="(0,0,0)", to="(conv3-east)",height=2, depth=4, width=8,caption="MaxPool"),
+        
+        # 第二帧
+        to_Conv("input", 32, 96,3, offset="(0,15,0)", to="(0,0,0)", height=32, depth=96, width=3,caption='input'),
+        to_input( 'eeg.jpg', to='(input-east)', width=18, height=6),
+        
+        to_ConvRelu("conv1", 28, 82,6, offset="(3,0,0)", to="(input-east)", height=28, depth=82, width=6,caption='conv1'),
+        to_connection( "input", "conv1"), 
+        to_Pool("pool1", 14, 40,6,offset="(0,0,0)", to="(conv1-east)",height=14, depth=40, width=6,caption="MaxPool"),
+            
+        to_ConvRelu("conv2", 10, 26,8, offset="(3,0,0)", to="(pool1-east)", height=10, depth=26, width=8,caption='conv2'),
+        to_connection( "pool1", "conv2"), 
+        to_Pool("pool2", 5, 12,8,offset="(0,0,0)", to="(conv2-east)",height=5, depth=12, width=8,caption="MaxPool"),
+        
+        to_ConvRelu("conv3", 5, 12,8, offset="(2,0,0)", to="(pool2-east)", height=5, depth=12, width=8,caption='conv3'),
+        to_connection( "pool2", "conv3"), 
+        to_Pool("pool32", 2, 4,8,offset="(0,0,0)", to="(conv3-east)",height=2, depth=4, width=8,caption="MaxPool"),
+
+        # 第三帧
+        to_Conv("input", 32, 96,3, offset="(0,30,0)", to="(0,0,0)", height=32, depth=96, width=3,caption='input'),
+        to_input( 'eeg.jpg', to='(input-east)', width=18, height=6),
+        
+        to_ConvRelu("conv1", 28, 82,6, offset="(3,0,0)", to="(input-east)", height=28, depth=82, width=6,caption='conv1'),
+        to_connection( "input", "conv1"), 
+        to_Pool("pool1", 14, 40,6,offset="(0,0,0)", to="(conv1-east)",height=14, depth=40, width=6,caption="MaxPool"),
+            
+        to_ConvRelu("conv2", 10, 26,8, offset="(3,0,0)", to="(pool1-east)", height=10, depth=26, width=8,caption='conv2'),
+        to_connection( "pool1", "conv2"), 
+        to_Pool("pool2", 5, 12,8,offset="(0,0,0)", to="(conv2-east)",height=5, depth=12, width=8,caption="MaxPool"),
+        
+        to_ConvRelu("conv3", 5, 12,8, offset="(2,0,0)", to="(pool2-east)", height=5, depth=12, width=8,caption='conv3'),
+        to_connection( "pool2", "conv3"), 
+        to_Pool("pool33", 2, 4,8,offset="(0,0,0)", to="(conv3-east)",height=2, depth=4, width=8,caption="MaxPool"),
+
+        # 第四帧
+        to_Conv("input", 32, 96,3, offset="(0,45,0)", to="(0,0,0)", height=32, depth=96, width=3,caption='input'),
+        to_input( 'eeg.jpg', to='(input-east)', width=18, height=6),
+        
+        to_ConvRelu("conv1", 28, 82,6, offset="(3,0,0)", to="(input-east)", height=28, depth=82, width=6,caption='conv1'),
+        to_connection( "input", "conv1"), 
+        to_Pool("pool1", 14, 40,6,offset="(0,0,0)", to="(conv1-east)",height=14, depth=40, width=6,caption="MaxPool"),
+            
+        to_ConvRelu("conv2", 10, 26,8, offset="(3,0,0)", to="(pool1-east)", height=10, depth=26, width=8,caption='conv2'),
+        to_connection( "pool1", "conv2"), 
+        to_Pool("pool2", 5, 12,8,offset="(0,0,0)", to="(conv2-east)",height=5, depth=12, width=8,caption="MaxPool"),
+        
+        to_ConvRelu("conv3", 5, 12,8, offset="(2,0,0)", to="(pool2-east)", height=5, depth=12, width=8,caption='conv3'),
+        to_connection( "pool2", "conv3"), 
+        to_Pool("pool34", 2, 4,8,offset="(0,0,0)", to="(conv3-east)",height=2, depth=4, width=8,caption="MaxPool"),
+
+        # 全连接层
+        to_Sum( "sum", offset="(12,7,0)", to="(pool32-east)", radius=2.5, opacity=0.6),
+        to_connection( "pool31", "sum"),
+        to_connection( "pool32", "sum"),
+        to_connection( "pool33", "sum"),
+        to_connection( "pool34", "sum"),
+
+        to_Cascade("cascade", 1, 256,1, offset="(5,0,0)", to="(sum-east)", height=3.5, depth=256, width=3.5,caption='cascade'),
+        to_connection( "sum", "cascade"), 
+
+        to_FcRelu("fc1", 1, 32,1, offset="(3,0,0)", to="(cascade-east)", height=2.5, depth=32, width=2.5,caption='fc1'),
+        to_connection( "cascade", "fc1"), 
+        
+        to_SoftMax("softMax", 1 ,4,1, offset="(3,0,0)", to="(fc1-east)", height=1, depth=4, width=1, caption="SoftMax"  ),
+        to_connection( "fc1", "softMax"), 
+
+        to_end()
+        ]
+    to_generate(arch, os.getcwd()+'\\draw_houyi\\Net49\\Net49.tex' )
+    # end draw_Net49
+
+
 # draw_Net4()
 # draw_Net42()
 # draw_Net45()
-draw_Net46()
-draw_Net47()
+# draw_Net46()
+# draw_Net47()
+# draw_Net48()
+draw_Net49()

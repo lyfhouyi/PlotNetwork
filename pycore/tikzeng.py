@@ -237,6 +237,21 @@ def to_Sum( name, offset="(0,0,0)", to="(0,0,0)", radius=2.5, opacity=0.6):
     };
 """
 
+# 透明节点
+def to_transNode( name, offset="(0,0,0)", to="(0,0,0)", radius=0, opacity=0):
+    return r"""
+\pic[shift={"""+ offset +"""}] at """+ to +""" 
+    {Ball={
+        name=""" + name +""",
+        fill=\SumColor,
+        opacity="""+ str(opacity) +""",
+        radius="""+ str(radius) +""",
+        logo=$+$
+        }
+    };
+"""
+
+
 # 虚线未完成
 def to_ellipsis( of, to):
     return r"""
