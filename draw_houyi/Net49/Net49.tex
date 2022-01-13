@@ -133,6 +133,62 @@
         }
     };
 
+\pic[shift={(5,0,0)}] at (pool31-east) 
+    {Box={
+        name=input1,
+        caption=frame1,
+        xlabel=1,
+        ylabel=1,
+        zlabel=64,
+        fill=\ConvColor,
+        height=2.5,
+        width=2.5,
+        depth=64
+        }
+    };
+
+\pic[shift={ (6,0,0) }] at (input1-east) 
+    {Box={
+        name=node11,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=8,
+        fill=\FcColor,
+        height=2.5,
+        width=2.5,
+        depth=8
+        }
+    };
+
+\pic[shift={ (3,0,0) }] at (node11-east) 
+    {Box={
+        name=node21,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=8,
+        fill=\FcColor,
+        height=2.5,
+        width=2.5,
+        depth=8
+        }
+    };
+
+\pic[shift={ (3,0,0) }] at (node21-east) 
+    {Box={
+        name=node31,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=8,
+        fill=\FcColor,
+        height=2.5,
+        width=2.5,
+        depth=8
+        }
+    };
+
 \pic[shift={(0,15,0)}] at (0,0,0) 
     {Box={
         name=input,
@@ -468,74 +524,6 @@
         depth=4
         }
     };
-
-\pic[shift={(12,7,0)}] at (pool32-east) 
-    {Ball={
-        name=sum,
-        fill=\SumColor,
-        opacity=0.6,
-        radius=2.5,
-        logo=$+$
-        }
-    };
-
-\draw [connection]  (pool31-east)    -- node {\midarrow} (sum-west);
-
-\draw [connection]  (pool32-east)    -- node {\midarrow} (sum-west);
-
-\draw [connection]  (pool33-east)    -- node {\midarrow} (sum-west);
-
-\draw [connection]  (pool34-east)    -- node {\midarrow} (sum-west);
-
-\pic[shift={ (5,0,0) }] at (sum-east) 
-    {Box={
-        name=cascade,
-        caption=cascade,
-        xlabel=1,
-        ylabel=1,
-        zlabel=256,
-        fill=\FcColor,
-        height=3.5,
-        width=3.5,
-        depth=256
-        }
-    };
-
-\draw [connection]  (sum-east)    -- node {\midarrow} (cascade-west);
-
-\pic[shift={ (3,0,0) }] at (cascade-east) 
-    {RightBandedBox={
-        name=fc1,
-        caption=fc1,
-        xlabel=1,
-        ylabel=1,
-        zlabel=32,
-        fill=\FcColor,
-        bandfill=\FcReluColor,
-        height=2.5,
-        width=2.5,
-        depth=32
-        }
-    };
-
-\draw [connection]  (cascade-east)    -- node {\midarrow} (fc1-west);
-
-\pic[shift={(3,0,0)}] at (fc1-east) 
-    {Box={
-        name=softMax,
-        caption=SoftMax,
-        xlabel=1,
-        ylabel=1,
-        zlabel=4,
-        fill=\SoftmaxColor,
-        opacity=0.5,
-        height=1,
-        width=1,
-        depth=4
-        }
-    };
-
-\draw [connection]  (fc1-east)    -- node {\midarrow} (softMax-west);
 
 \end{tikzpicture}
 \end{document}

@@ -520,6 +520,7 @@ def draw_Net49():
         to_begin(),
 
         # 第一帧
+        # CNN 模块        
         to_Conv("input", 32, 96,3, offset="(0,0,0)", to="(0,0,0)", height=32, depth=96, width=3,caption='input'),
         to_input( 'eeg.jpg', to='(input-east)', width=18, height=6),
         
@@ -534,7 +535,13 @@ def draw_Net49():
         to_ConvRelu("conv3", 5, 12,8, offset="(2,0,0)", to="(pool2-east)", height=5, depth=12, width=8,caption='conv3'),
         to_connection( "pool2", "conv3"), 
         to_Pool("pool31", 2, 4,8,offset="(0,0,0)", to="(conv3-east)",height=2, depth=4, width=8,caption="MaxPool"),
-        
+        # LSTM 模块
+        to_Conv("input1", 1, 64,1, offset="(5,0,0)", to="(pool31-east)", height=2.5, depth=64, width=2.5,caption='frame1'),
+        to_Cascade("node11", 1, 8,1, offset="(6,0,0)", to="(input1-east)", height=2.5, depth=8, width=2.5,caption=''),
+        to_Cascade("node21", 1, 8,1, offset="(3,0,0)", to="(node11-east)", height=2.5, depth=8, width=2.5,caption=''),
+        to_Cascade("node31", 1, 8,1, offset="(3,0,0)", to="(node21-east)", height=2.5, depth=8, width=2.5,caption=''),
+
+
         # 第二帧
         to_Conv("input", 32, 96,3, offset="(0,15,0)", to="(0,0,0)", height=32, depth=96, width=3,caption='input'),
         to_input( 'eeg.jpg', to='(input-east)', width=18, height=6),
@@ -583,21 +590,21 @@ def draw_Net49():
         to_connection( "pool2", "conv3"), 
         to_Pool("pool34", 2, 4,8,offset="(0,0,0)", to="(conv3-east)",height=2, depth=4, width=8,caption="MaxPool"),
 
-        # 全连接层
-        to_Sum( "sum", offset="(12,7,0)", to="(pool32-east)", radius=2.5, opacity=0.6),
-        to_connection( "pool31", "sum"),
-        to_connection( "pool32", "sum"),
-        to_connection( "pool33", "sum"),
-        to_connection( "pool34", "sum"),
+        # # 全连接层
+        # to_Sum( "sum", offset="(12,7,0)", to="(pool32-east)", radius=2.5, opacity=0.6),
+        # to_connection( "pool31", "sum"),
+        # to_connection( "pool32", "sum"),
+        # to_connection( "pool33", "sum"),
+        # to_connection( "pool34", "sum"),
 
-        to_Cascade("cascade", 1, 256,1, offset="(5,0,0)", to="(sum-east)", height=3.5, depth=256, width=3.5,caption='cascade'),
-        to_connection( "sum", "cascade"), 
+        # to_Cascade("cascade", 1, 256,1, offset="(5,0,0)", to="(sum-east)", height=3.5, depth=256, width=3.5,caption='cascade'),
+        # to_connection( "sum", "cascade"), 
 
-        to_FcRelu("fc1", 1, 32,1, offset="(3,0,0)", to="(cascade-east)", height=2.5, depth=32, width=2.5,caption='fc1'),
-        to_connection( "cascade", "fc1"), 
+        # to_FcRelu("fc1", 1, 32,1, offset="(3,0,0)", to="(cascade-east)", height=2.5, depth=32, width=2.5,caption='fc1'),
+        # to_connection( "cascade", "fc1"), 
         
-        to_SoftMax("softMax", 1 ,4,1, offset="(3,0,0)", to="(fc1-east)", height=1, depth=4, width=1, caption="SoftMax"  ),
-        to_connection( "fc1", "softMax"), 
+        # to_SoftMax("softMax", 1 ,4,1, offset="(3,0,0)", to="(fc1-east)", height=1, depth=4, width=1, caption="SoftMax"  ),
+        # to_connection( "fc1", "softMax"), 
 
         to_end()
         ]
