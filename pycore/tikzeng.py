@@ -19,7 +19,9 @@ def to_cor():
 \def\UnpoolColor{rgb:blue,2;green,1;black,0.3}
 \def\FcColor{rgb:blue,5;red,2.5;white,5}
 \def\FcReluColor{rgb:blue,5;red,5;white,4}
-\def\SoftmaxColor{rgb:magenta,10;black,7}   
+\def\FcFineColor{rgb:green,10;red,2.5;black,3}
+\def\FcReluFineColor{rgb:green,10;red,6.5;black,3}
+\def\SoftmaxColor{rgb:green,10;black,7}   
 \def\SumColor{rgb:blue,5;green,15}
 """
 
@@ -169,6 +171,24 @@ def to_FcRelu( name, height_filer=256, depth_filer=64,width_filer=256, offset="(
     };
 """
 
+# Fc,Relu 微调
+def to_FcRelu_fine( name, height_filer=256, depth_filer=64,width_filer=256, offset="(0,0,0)", to="(0,0,0)", height=40, depth=40, width=1, caption=" " ):
+    return r"""
+\pic[shift={ """+ offset +""" }] at """+ to +""" 
+    {RightBandedBox={
+        name=""" + name +""",
+        caption="""+ caption +r""",
+        xlabel="""+ str(width_filer) +""",
+        ylabel="""+ str(height_filer) +""",
+        zlabel="""+ str(depth_filer) +""",
+        fill=\FcFineColor,
+        bandfill=\FcReluFineColor,
+        height="""+ str(height) +""",
+        width="""+ str(width) +""",
+        depth="""+ str(depth) +"""
+        }
+    };
+"""
 
 def to_ConvRes( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", width=6, height=40, depth=40, opacity=0.2, caption=" " ):
     return r"""

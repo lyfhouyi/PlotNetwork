@@ -11,7 +11,9 @@
 \def\UnpoolColor{rgb:blue,2;green,1;black,0.3}
 \def\FcColor{rgb:blue,5;red,2.5;white,5}
 \def\FcReluColor{rgb:blue,5;red,5;white,4}
-\def\SoftmaxColor{rgb:magenta,10;black,7}   
+\def\FcFineColor{rgb:green,10;red,2.5;black,3}
+\def\FcReluFineColor{rgb:green,10;red,6.5;black,3}
+\def\SoftmaxColor{rgb:green,10;black,7}   
 \def\SumColor{rgb:blue,5;green,15}
 
 \newcommand{\copymidarrow}{\tikz \draw[-Stealth,line width=0.8mm,draw={rgb:blue,4;red,1;green,1;black,3}] (-0.3,0) -- ++(0.3,0);}
@@ -189,6 +191,14 @@
         }
     };
 
+\draw [connection]  (pool31-east)    -- node {\midarrow} (input1-west);
+
+\draw [connection]  (input1-east)    -- node {\midarrow} (node11-west);
+
+\draw [connection]  (node11-east)    -- node {\midarrow} (node21-west);
+
+\draw [connection]  (node21-east)    -- node {\midarrow} (node31-west);
+
 \pic[shift={(0,15,0)}] at (0,0,0) 
     {Box={
         name=input,
@@ -300,6 +310,70 @@
         depth=4
         }
     };
+
+\pic[shift={(5,0,0)}] at (pool32-east) 
+    {Box={
+        name=input2,
+        caption=frame2,
+        xlabel=1,
+        ylabel=1,
+        zlabel=64,
+        fill=\ConvColor,
+        height=2.5,
+        width=2.5,
+        depth=64
+        }
+    };
+
+\pic[shift={ (6,0,0) }] at (input2-east) 
+    {Box={
+        name=node12,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=8,
+        fill=\FcColor,
+        height=2.5,
+        width=2.5,
+        depth=8
+        }
+    };
+
+\pic[shift={ (3,0,0) }] at (node12-east) 
+    {Box={
+        name=node22,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=8,
+        fill=\FcColor,
+        height=2.5,
+        width=2.5,
+        depth=8
+        }
+    };
+
+\pic[shift={ (3,0,0) }] at (node22-east) 
+    {Box={
+        name=node32,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=8,
+        fill=\FcColor,
+        height=2.5,
+        width=2.5,
+        depth=8
+        }
+    };
+
+\draw [connection]  (pool32-east)    -- node {\midarrow} (input2-west);
+
+\draw [connection]  (input2-east)    -- node {\midarrow} (node12-west);
+
+\draw [connection]  (node12-east)    -- node {\midarrow} (node22-west);
+
+\draw [connection]  (node22-east)    -- node {\midarrow} (node32-west);
 
 \pic[shift={(0,30,0)}] at (0,0,0) 
     {Box={
@@ -413,6 +487,70 @@
         }
     };
 
+\pic[shift={(5,0,0)}] at (pool33-east) 
+    {Box={
+        name=input3,
+        caption=frame3,
+        xlabel=1,
+        ylabel=1,
+        zlabel=64,
+        fill=\ConvColor,
+        height=2.5,
+        width=2.5,
+        depth=64
+        }
+    };
+
+\pic[shift={ (6,0,0) }] at (input3-east) 
+    {Box={
+        name=node13,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=8,
+        fill=\FcColor,
+        height=2.5,
+        width=2.5,
+        depth=8
+        }
+    };
+
+\pic[shift={ (3,0,0) }] at (node13-east) 
+    {Box={
+        name=node23,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=8,
+        fill=\FcColor,
+        height=2.5,
+        width=2.5,
+        depth=8
+        }
+    };
+
+\pic[shift={ (3,0,0) }] at (node23-east) 
+    {Box={
+        name=node33,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=8,
+        fill=\FcColor,
+        height=2.5,
+        width=2.5,
+        depth=8
+        }
+    };
+
+\draw [connection]  (pool33-east)    -- node {\midarrow} (input3-west);
+
+\draw [connection]  (input3-east)    -- node {\midarrow} (node13-west);
+
+\draw [connection]  (node13-east)    -- node {\midarrow} (node23-west);
+
+\draw [connection]  (node23-east)    -- node {\midarrow} (node33-west);
+
 \pic[shift={(0,45,0)}] at (0,0,0) 
     {Box={
         name=input,
@@ -524,6 +662,121 @@
         depth=4
         }
     };
+
+\pic[shift={(5,0,0)}] at (pool34-east) 
+    {Box={
+        name=input4,
+        caption=frame4,
+        xlabel=1,
+        ylabel=1,
+        zlabel=64,
+        fill=\ConvColor,
+        height=2.5,
+        width=2.5,
+        depth=64
+        }
+    };
+
+\pic[shift={ (6,0,0) }] at (input4-east) 
+    {Box={
+        name=node14,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=8,
+        fill=\FcColor,
+        height=2.5,
+        width=2.5,
+        depth=8
+        }
+    };
+
+\pic[shift={ (3,0,0) }] at (node14-east) 
+    {Box={
+        name=node24,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=8,
+        fill=\FcColor,
+        height=2.5,
+        width=2.5,
+        depth=8
+        }
+    };
+
+\pic[shift={ (3,0,0) }] at (node24-east) 
+    {Box={
+        name=node34,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=8,
+        fill=\FcColor,
+        height=2.5,
+        width=2.5,
+        depth=8
+        }
+    };
+
+\draw [connection]  (pool34-east)    -- node {\midarrow} (input4-west);
+
+\draw [connection]  (input4-east)    -- node {\midarrow} (node14-west);
+
+\draw [connection]  (node14-east)    -- node {\midarrow} (node24-west);
+
+\draw [connection]  (node24-east)    -- node {\midarrow} (node34-west);
+
+\pic[shift={(12,7,0)}] at (node32-east) 
+    {Ball={
+        name=sum,
+        fill=\SumColor,
+        opacity=0.6,
+        radius=2.5,
+        logo=$+$
+        }
+    };
+
+\draw [connection]  (node31-east)    -- node {\midarrow} (sum-west);
+
+\draw [connection]  (node32-east)    -- node {\midarrow} (sum-west);
+
+\draw [connection]  (node33-east)    -- node {\midarrow} (sum-west);
+
+\draw [connection]  (node34-east)    -- node {\midarrow} (sum-west);
+
+\pic[shift={ (5,0,0) }] at (sum-east) 
+    {Box={
+        name=cascade,
+        caption=cascade,
+        xlabel=1,
+        ylabel=1,
+        zlabel=32,
+        fill=\FcColor,
+        height=2.5,
+        width=2.5,
+        depth=32
+        }
+    };
+
+\draw [connection]  (sum-east)    -- node {\midarrow} (cascade-west);
+
+\pic[shift={(3,0,0)}] at (cascade-east) 
+    {Box={
+        name=softMax,
+        caption=SoftMax,
+        xlabel=1,
+        ylabel=1,
+        zlabel=4,
+        fill=\SoftmaxColor,
+        opacity=0.5,
+        height=2,
+        width=2,
+        depth=5
+        }
+    };
+
+\draw [connection]  (cascade-east)    -- node {\midarrow} (softMax-west);
 
 \end{tikzpicture}
 \end{document}
