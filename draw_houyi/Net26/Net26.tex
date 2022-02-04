@@ -1,0 +1,514 @@
+
+\documentclass[border=8pt, multi, tikz]{standalone} 
+\usepackage{import}
+\subimport{../../layers/}{init}
+\usetikzlibrary{positioning}
+\usetikzlibrary{3d} %for including external image 
+
+\def\ConvColor{rgb:yellow,5;red,2.5;white,5}
+\def\ConvReluColor{rgb:yellow,5;red,5;white,5}
+\def\PoolColor{rgb:red,1;black,0.3}
+\def\UnpoolColor{rgb:blue,2;green,1;black,0.3}
+\def\FcColor{rgb:blue,5;red,2.5;white,5}
+\def\FcReluColor{rgb:blue,5;red,5;white,4}
+\def\FcFineColor{rgb:green,10;red,2.5;black,3}
+\def\FcReluFineColor{rgb:green,10;red,6.5;black,3}
+\def\SoftmaxColor{rgb:green,10;black,7}   
+\def\SumColor{rgb:blue,5;green,15}
+
+\newcommand{\copymidarrow}{\tikz \draw[-Stealth,line width=0.8mm,draw={rgb:blue,4;red,1;green,1;black,3}] (-0.3,0) -- ++(0.3,0);}
+
+\begin{document}
+\begin{tikzpicture}
+\tikzstyle{connection}=[ultra thick,every node/.style={sloped,allow upside down},draw=\edgecolor,opacity=0.7]
+\tikzstyle{copyconnection}=[ultra thick,every node/.style={sloped,allow upside down},draw={rgb:blue,4;red,1;green,1;black,3},opacity=0.7]
+
+\pic[shift={(0,0,0)}] at (0,0,0) 
+    {Box={
+        name=input1,
+        caption=frame1,
+        xlabel=1,
+        ylabel=1,
+        zlabel=224,
+        fill=\ConvColor,
+        height=5,
+        width=5,
+        depth=224
+        }
+    };
+
+\pic[shift={(20,0,0)}] at (input1-east) 
+    {Box={
+        name=input2,
+        caption=frame2,
+        xlabel=1,
+        ylabel=1,
+        zlabel=224,
+        fill=\ConvColor,
+        height=5,
+        width=5,
+        depth=224
+        }
+    };
+
+\pic[shift={(20,0,0)}] at (input2-east) 
+    {Box={
+        name=input3,
+        caption=frame3,
+        xlabel=1,
+        ylabel=1,
+        zlabel=224,
+        fill=\ConvColor,
+        height=5,
+        width=5,
+        depth=224
+        }
+    };
+
+\pic[shift={(20,0,0)}] at (input3-east) 
+    {Box={
+        name=input4,
+        caption=frame4,
+        xlabel=1,
+        ylabel=1,
+        zlabel=224,
+        fill=\ConvColor,
+        height=5,
+        width=5,
+        depth=224
+        }
+    };
+
+\pic[shift={(20,0,0)}] at (input4-east) 
+    {Box={
+        name=input5,
+        caption=frame5,
+        xlabel=1,
+        ylabel=1,
+        zlabel=224,
+        fill=\ConvColor,
+        height=5,
+        width=5,
+        depth=224
+        }
+    };
+
+\pic[shift={(20,0,0)}] at (input5-east) 
+    {Box={
+        name=input6,
+        caption=frame6,
+        xlabel=1,
+        ylabel=1,
+        zlabel=224,
+        fill=\ConvColor,
+        height=5,
+        width=5,
+        depth=224
+        }
+    };
+
+\pic[shift={(20,0,0)}] at (input6-east) 
+    {Box={
+        name=input7,
+        caption=frame7,
+        xlabel=1,
+        ylabel=1,
+        zlabel=224,
+        fill=\ConvColor,
+        height=5,
+        width=5,
+        depth=224
+        }
+    };
+
+\pic[shift={ (0,20,0) }] at (input1-north) 
+    {Box={
+        name=node11,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\pic[shift={ (20,0,0) }] at (node11-east) 
+    {Box={
+        name=node21,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\pic[shift={ (20,0,0) }] at (node21-east) 
+    {Box={
+        name=node31,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\pic[shift={ (20,0,0) }] at (node31-east) 
+    {Box={
+        name=node41,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\pic[shift={ (20,0,0) }] at (node41-east) 
+    {Box={
+        name=node51,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\pic[shift={ (20,0,0) }] at (node51-east) 
+    {Box={
+        name=node61,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\pic[shift={ (20,0,0) }] at (node61-east) 
+    {Box={
+        name=node71,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\draw [connection]  (node11-east)    -- node {\midarrow} (node21-west);
+
+\draw [connection]  (node21-east)    -- node {\midarrow} (node31-west);
+
+\draw [connection]  (node31-east)    -- node {\midarrow} (node41-west);
+
+\draw [connection]  (node41-east)    -- node {\midarrow} (node51-west);
+
+\draw [connection]  (node51-east)    -- node {\midarrow} (node61-west);
+
+\draw [connection]  (node61-east)    -- node {\midarrow} (node71-west);
+
+\draw [connection]  (input1-north)    -- node {\midarrow} (node11-south);
+
+\draw [connection]  (input2-north)    -- node {\midarrow} (node21-south);
+
+\draw [connection]  (input3-north)    -- node {\midarrow} (node31-south);
+
+\draw [connection]  (input4-north)    -- node {\midarrow} (node41-south);
+
+\draw [connection]  (input5-north)    -- node {\midarrow} (node51-south);
+
+\draw [connection]  (input6-north)    -- node {\midarrow} (node61-south);
+
+\draw [connection]  (input7-north)    -- node {\midarrow} (node71-south);
+
+\pic[shift={ (0,10,0) }] at (node11-north) 
+    {Box={
+        name=node12,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\pic[shift={ (20,0,0) }] at (node12-east) 
+    {Box={
+        name=node22,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\pic[shift={ (20,0,0) }] at (node22-east) 
+    {Box={
+        name=node32,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\pic[shift={ (20,0,0) }] at (node32-east) 
+    {Box={
+        name=node42,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\pic[shift={ (20,0,0) }] at (node42-east) 
+    {Box={
+        name=node52,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\pic[shift={ (20,0,0) }] at (node52-east) 
+    {Box={
+        name=node62,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\pic[shift={ (20,0,0) }] at (node62-east) 
+    {Box={
+        name=node72,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\draw [connection]  (node12-east)    -- node {\midarrow} (node22-west);
+
+\draw [connection]  (node22-east)    -- node {\midarrow} (node32-west);
+
+\draw [connection]  (node32-east)    -- node {\midarrow} (node42-west);
+
+\draw [connection]  (node42-east)    -- node {\midarrow} (node52-west);
+
+\draw [connection]  (node52-east)    -- node {\midarrow} (node62-west);
+
+\draw [connection]  (node62-east)    -- node {\midarrow} (node72-west);
+
+\draw [connection]  (node11-north)    -- node {\midarrow} (node12-south);
+
+\draw [connection]  (node21-north)    -- node {\midarrow} (node22-south);
+
+\draw [connection]  (node31-north)    -- node {\midarrow} (node32-south);
+
+\draw [connection]  (node41-north)    -- node {\midarrow} (node42-south);
+
+\draw [connection]  (node51-north)    -- node {\midarrow} (node52-south);
+
+\draw [connection]  (node61-north)    -- node {\midarrow} (node62-south);
+
+\draw [connection]  (node71-north)    -- node {\midarrow} (node72-south);
+
+\pic[shift={ (0,10,0) }] at (node12-north) 
+    {Box={
+        name=node13,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\pic[shift={ (20,0,0) }] at (node13-east) 
+    {Box={
+        name=node23,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\pic[shift={ (20,0,0) }] at (node23-east) 
+    {Box={
+        name=node33,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\pic[shift={ (20,0,0) }] at (node33-east) 
+    {Box={
+        name=node43,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\pic[shift={ (20,0,0) }] at (node43-east) 
+    {Box={
+        name=node53,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\pic[shift={ (20,0,0) }] at (node53-east) 
+    {Box={
+        name=node63,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\pic[shift={ (20,0,0) }] at (node63-east) 
+    {Box={
+        name=node73,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\draw [connection]  (node13-east)    -- node {\midarrow} (node23-west);
+
+\draw [connection]  (node23-east)    -- node {\midarrow} (node33-west);
+
+\draw [connection]  (node33-east)    -- node {\midarrow} (node43-west);
+
+\draw [connection]  (node43-east)    -- node {\midarrow} (node53-west);
+
+\draw [connection]  (node53-east)    -- node {\midarrow} (node63-west);
+
+\draw [connection]  (node63-east)    -- node {\midarrow} (node73-west);
+
+\draw [connection]  (node12-north)    -- node {\midarrow} (node13-south);
+
+\draw [connection]  (node22-north)    -- node {\midarrow} (node23-south);
+
+\draw [connection]  (node32-north)    -- node {\midarrow} (node33-south);
+
+\draw [connection]  (node42-north)    -- node {\midarrow} (node43-south);
+
+\draw [connection]  (node52-north)    -- node {\midarrow} (node53-south);
+
+\draw [connection]  (node62-north)    -- node {\midarrow} (node63-south);
+
+\draw [connection]  (node72-north)    -- node {\midarrow} (node73-south);
+
+\pic[shift={(0,10,0)}] at (node73-north) 
+    {Box={
+        name=softMax,
+        caption=SoftMax,
+        xlabel=1,
+        ylabel=1,
+        zlabel=2,
+        fill=\SoftmaxColor,
+        opacity=0.5,
+        height=4,
+        width=4,
+        depth=6
+        }
+    };
+
+\draw [connection]  (node73-north)    -- node {\midarrow} (softMax-south);
+
+\end{tikzpicture}
+\end{document}

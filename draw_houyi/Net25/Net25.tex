@@ -1,0 +1,143 @@
+
+\documentclass[border=8pt, multi, tikz]{standalone} 
+\usepackage{import}
+\subimport{../../layers/}{init}
+\usetikzlibrary{positioning}
+\usetikzlibrary{3d} %for including external image 
+
+\def\ConvColor{rgb:yellow,5;red,2.5;white,5}
+\def\ConvReluColor{rgb:yellow,5;red,5;white,5}
+\def\PoolColor{rgb:red,1;black,0.3}
+\def\UnpoolColor{rgb:blue,2;green,1;black,0.3}
+\def\FcColor{rgb:blue,5;red,2.5;white,5}
+\def\FcReluColor{rgb:blue,5;red,5;white,4}
+\def\FcFineColor{rgb:green,10;red,2.5;black,3}
+\def\FcReluFineColor{rgb:green,10;red,6.5;black,3}
+\def\SoftmaxColor{rgb:green,10;black,7}   
+\def\SumColor{rgb:blue,5;green,15}
+
+\newcommand{\copymidarrow}{\tikz \draw[-Stealth,line width=0.8mm,draw={rgb:blue,4;red,1;green,1;black,3}] (-0.3,0) -- ++(0.3,0);}
+
+\begin{document}
+\begin{tikzpicture}
+\tikzstyle{connection}=[ultra thick,every node/.style={sloped,allow upside down},draw=\edgecolor,opacity=0.7]
+\tikzstyle{copyconnection}=[ultra thick,every node/.style={sloped,allow upside down},draw={rgb:blue,4;red,1;green,1;black,3},opacity=0.7]
+
+\pic[shift={(0,0,0)}] at (0,0,0) 
+    {Box={
+        name=input,
+        caption=input,
+        xlabel=1,
+        ylabel=224,
+        zlabel=1,
+        fill=\ConvColor,
+        height=112,
+        width=6,
+        depth=6
+        }
+    };
+
+\pic[shift={ (3,0,0) }] at (input-east) 
+    {RightBandedBox={
+        name=fc1,
+        caption=fc1,
+        xlabel=1,
+        ylabel=1024,
+        zlabel=1,
+        fill=\FcColor,
+        bandfill=\FcReluColor,
+        height=325,
+        width=6,
+        depth=6
+        }
+    };
+
+\draw [connection]  (input-east)    -- node {\midarrow} (fc1-west);
+
+\pic[shift={ (3,0,0) }] at (fc1-east) 
+    {RightBandedBox={
+        name=fc2,
+        caption=fc2,
+        xlabel=1,
+        ylabel=1024,
+        zlabel=1,
+        fill=\FcColor,
+        bandfill=\FcReluColor,
+        height=325,
+        width=6,
+        depth=6
+        }
+    };
+
+\draw [connection]  (fc1-east)    -- node {\midarrow} (fc2-west);
+
+\pic[shift={ (3,0,0) }] at (fc2-east) 
+    {RightBandedBox={
+        name=fc3,
+        caption=fc3,
+        xlabel=1,
+        ylabel=256,
+        zlabel=1,
+        fill=\FcColor,
+        bandfill=\FcReluColor,
+        height=128,
+        width=6,
+        depth=6
+        }
+    };
+
+\draw [connection]  (fc2-east)    -- node {\midarrow} (fc3-west);
+
+\pic[shift={ (3,0,0) }] at (fc3-east) 
+    {RightBandedBox={
+        name=fc4,
+        caption=fc4,
+        xlabel=1,
+        ylabel=64,
+        zlabel=1,
+        fill=\FcColor,
+        bandfill=\FcReluColor,
+        height=30,
+        width=6,
+        depth=6
+        }
+    };
+
+\draw [connection]  (fc3-east)    -- node {\midarrow} (fc4-west);
+
+\pic[shift={ (3,0,0) }] at (fc4-east) 
+    {RightBandedBox={
+        name=fc5,
+        caption=fc5,
+        xlabel=1,
+        ylabel=16,
+        zlabel=1,
+        fill=\FcFineColor,
+        bandfill=\FcReluFineColor,
+        height=16,
+        width=4,
+        depth=4
+        }
+    };
+
+\draw [connection]  (fc4-east)    -- node {\midarrow} (fc5-west);
+
+\pic[shift={(3,0,0)}] at (fc5-east) 
+    {Box={
+        name=softMax,
+        caption=SoftMax,
+        xlabel=1,
+        ylabel=2,
+        zlabel=1,
+        fill=\SoftmaxColor,
+        opacity=0.5,
+        height=3,
+        width=2,
+        depth=2
+        }
+    };
+
+\draw [connection]  (fc5-east)    -- node {\midarrow} (softMax-west);
+
+\end{tikzpicture}
+\end{document}
