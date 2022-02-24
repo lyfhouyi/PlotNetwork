@@ -1041,7 +1041,7 @@ def draw_Net27():
         to_Cascade("cascade", 1,112,1, offset="(0,10,0)", to="(sum-north)", height=5, depth=112, width=5,caption='cascade'),
         to_connection( "sum", "cascade","north","south"), 
 
-        to_FcRelu("fc1", 1, 16,1, offset="(0,10,0)", to="(cascade-north)", height=5, depth=16, width=5,caption='fc1'),
+        to_FcRelu_fine("fc1", 1, 16,1, offset="(0,10,0)", to="(cascade-north)", height=5, depth=16, width=5,caption='fc1'),
         to_connection( "cascade", "fc1","north","south"), 
 
         to_SoftMax("softMax", 1 ,2,1, offset="(0,10,0)", to="(fc1-north)", height=3, depth=6, width=3, caption="SoftMax"  ),
@@ -1315,6 +1315,6 @@ def draw_Net29():
 # draw_Net22()
 # draw_Net25()
 # draw_Net26()
-# draw_Net27()
+draw_Net27()
 # draw_Net28()
-draw_Net29()
+# draw_Net29()
