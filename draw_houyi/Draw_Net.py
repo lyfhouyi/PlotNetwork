@@ -809,6 +809,172 @@ def draw_Net22():
     # end draw_Net22
 
 
+def draw_Net23():
+    arch = [
+        to_head( '..' ),
+        to_cor(),
+        to_begin(),
+
+        # 输入层
+        to_Conv("input1", 1, 32,1, offset="(0,0,0)", to="(0,0,0)", height=4, depth=32, width=4,caption='frame1'),
+        to_Conv("input4", 1, 32,1, offset="(30,0,0)", to="(input1-east)", height=4, depth=32, width=4,caption='frame4'),
+        to_Conv("input7", 1, 32,1, offset="(30,0,0)", to="(input4-east)", height=4, depth=32, width=4,caption='frame7'),
+        
+        # 第一层
+        to_Cascade("node11", 1, 16,1, offset="(0,12,0)", to="(input1-north)", height=4, depth=16, width=4,caption=''),
+        to_transNode("transNode21",offset="(8,0,0)", to="(node11-east)"),
+        to_transNode("transNode31",offset="(14,0,0)", to="(transNode21-east)"),
+        to_Cascade("node41", 1, 16,1, offset="(30,0,0)", to="(node11-east)", height=4, depth=16, width=4,caption=''),
+        to_transNode("transNode51",offset="(8,0,0)", to="(node41-east)"),
+        to_transNode("transNode61",offset="(14,0,0)", to="(transNode51-east)"),
+        to_Cascade("node71", 1, 16,1, offset="(30,0,0)", to="(node41-east)", height=4, depth=16, width=4,caption=''),
+        
+        to_connection( "node11", "transNode21"), 
+        to_connection( "transNode31", "node41"), 
+        to_connection( "node41", "transNode51"), 
+        to_connection( "transNode61", "node71"), 
+
+        to_connection( "input1", "node11","north","south"), 
+        to_connection( "input4", "node41","north","south"), 
+        to_connection( "input7", "node71","north","south"), 
+
+        # 第二层
+        to_Cascade("node12", 1, 16,1, offset="(0,10,0)", to="(node11-north)", height=4, depth=16, width=4,caption=''),
+        to_transNode("transNode22",offset="(8,0,0)", to="(node12-east)"),
+        to_transNode("transNode32",offset="(14,0,0)", to="(transNode22-east)"),        
+        to_Cascade("node42", 1, 16,1, offset="(30,0,0)", to="(node12-east)", height=4, depth=16, width=4,caption=''),
+        to_transNode("transNode52",offset="(8,0,0)", to="(node42-east)"),
+        to_transNode("transNode62",offset="(14,0,0)", to="(transNode52-east)"),
+        to_Cascade("node72", 1, 16,1, offset="(30,0,0)", to="(node42-east)", height=4, depth=16, width=4,caption=''),
+
+        to_connection( "node12", "transNode22"), 
+        to_connection( "transNode32", "node42"), 
+        to_connection( "node42", "transNode52"), 
+        to_connection( "transNode62", "node72"), 
+
+        to_connection( "node11", "node12","north","south"), 
+        to_connection( "node41", "node42","north","south"), 
+        to_connection( "node71", "node72","north","south"), 
+
+        # 第三层
+        to_Cascade("node13", 1, 16,1, offset="(0,10,0)", to="(node12-north)", height=4, depth=16, width=4,caption=''),
+        to_transNode("transNode23",offset="(8,0,0)", to="(node13-east)"),
+        to_transNode("transNode33",offset="(14,0,0)", to="(transNode23-east)"), 
+        to_Cascade("node43", 1, 16,1, offset="(30,0,0)", to="(node13-east)", height=4, depth=16, width=4,caption=''),
+        to_transNode("transNode53",offset="(8,0,0)", to="(node43-east)"),
+        to_transNode("transNode63",offset="(14,0,0)", to="(transNode53-east)"),
+        to_Cascade("node73", 1, 16,1, offset="(30,0,0)", to="(node43-east)", height=4, depth=16, width=4,caption=''),
+
+        to_connection( "node13", "transNode23"),  
+        to_connection( "transNode33", "node43"), 
+        to_connection( "node43", "transNode53"), 
+        to_connection( "transNode63", "node73"), 
+
+        to_connection( "node12", "node13","north","south"), 
+        to_connection( "node42", "node43","north","south"), 
+        to_connection( "node72", "node73","north","south"), 
+
+        # 全连接层
+        to_SoftMax("softMax", 1 ,2,1, offset="(0,10,0)", to="(node73-north)", height=3, depth=6, width=3, caption="SoftMax"  ),
+        to_connection( "node73", "softMax","north","south"), 
+
+        to_end()
+        ]
+    to_generate(arch, os.getcwd()+'\\draw_houyi\\Net23\\Net23.tex' )
+    # end draw_Net23
+
+
+
+def draw_Net24():
+    arch = [
+        to_head( '..' ),
+        to_cor(),
+        to_begin(),
+
+        # 输入层
+        to_Conv("input1", 1, 32,1, offset="(0,0,0)", to="(0,0,0)", height=4, depth=32, width=4,caption='frame1'),
+        to_Conv("input4", 1, 32,1, offset="(30,0,0)", to="(input1-east)", height=4, depth=32, width=4,caption='frame4'),
+        to_Conv("input7", 1, 32,1, offset="(30,0,0)", to="(input4-east)", height=4, depth=32, width=4,caption='frame7'),
+        
+        # 第一层
+        to_Cascade("node11", 1, 16,1, offset="(0,12,0)", to="(input1-north)", height=4, depth=16, width=4,caption=''),
+        to_transNode("transNode21",offset="(8,0,0)", to="(node11-east)"),
+        to_transNode("transNode31",offset="(14,0,0)", to="(transNode21-east)"),
+        to_Cascade("node41", 1, 16,1, offset="(30,0,0)", to="(node11-east)", height=4, depth=16, width=4,caption=''),
+        to_transNode("transNode51",offset="(8,0,0)", to="(node41-east)"),
+        to_transNode("transNode61",offset="(14,0,0)", to="(transNode51-east)"),
+        to_Cascade("node71", 1, 16,1, offset="(30,0,0)", to="(node41-east)", height=4, depth=16, width=4,caption=''),
+        
+        to_connection( "node11", "transNode21"), 
+        to_connection( "transNode31", "node41"), 
+        to_connection( "node41", "transNode51"), 
+        to_connection( "transNode61", "node71"), 
+
+        to_connection( "input1", "node11","north","south"), 
+        to_connection( "input4", "node41","north","south"), 
+        to_connection( "input7", "node71","north","south"), 
+
+        # 第二层
+        to_Cascade("node12", 1, 16,1, offset="(0,10,0)", to="(node11-north)", height=4, depth=16, width=4,caption=''),
+        to_transNode("transNode22",offset="(8,0,0)", to="(node12-east)"),
+        to_transNode("transNode32",offset="(14,0,0)", to="(transNode22-east)"),        
+        to_Cascade("node42", 1, 16,1, offset="(30,0,0)", to="(node12-east)", height=4, depth=16, width=4,caption=''),
+        to_transNode("transNode52",offset="(8,0,0)", to="(node42-east)"),
+        to_transNode("transNode62",offset="(14,0,0)", to="(transNode52-east)"),
+        to_Cascade("node72", 1, 16,1, offset="(30,0,0)", to="(node42-east)", height=4, depth=16, width=4,caption=''),
+
+        to_connection( "node12", "transNode22"), 
+        to_connection( "transNode32", "node42"), 
+        to_connection( "node42", "transNode52"), 
+        to_connection( "transNode62", "node72"), 
+
+        to_connection( "node11", "node12","north","south"), 
+        to_connection( "node41", "node42","north","south"), 
+        to_connection( "node71", "node72","north","south"), 
+
+        # 第三层
+        to_Cascade("node13", 1, 16,1, offset="(0,10,0)", to="(node12-north)", height=4, depth=16, width=4,caption=''),
+        to_transNode("transNode23",offset="(8,0,0)", to="(node13-east)"),
+        to_transNode("transNode33",offset="(14,0,0)", to="(transNode23-east)"), 
+        to_Cascade("node43", 1, 16,1, offset="(30,0,0)", to="(node13-east)", height=4, depth=16, width=4,caption=''),
+        to_transNode("transNode53",offset="(8,0,0)", to="(node43-east)"),
+        to_transNode("transNode63",offset="(14,0,0)", to="(transNode53-east)"),
+        to_Cascade("node73", 1, 16,1, offset="(30,0,0)", to="(node43-east)", height=4, depth=16, width=4,caption=''),
+
+        to_connection( "node13", "transNode23"),  
+        to_connection( "transNode33", "node43"), 
+        to_connection( "node43", "transNode53"), 
+        to_connection( "transNode63", "node73"), 
+
+        to_connection( "node12", "node13","north","south"), 
+        to_connection( "node42", "node43","north","south"), 
+        to_connection( "node72", "node73","north","south"), 
+
+        # 全连接层
+        to_Sum( "sum", offset="(0,10,0)", to="(node43-north)", radius=2.5, opacity=0.6),
+        to_connection( "node13", "sum","north","south"), 
+        to_connection( "node43", "sum","north","south"), 
+        to_connection( "node73", "sum","north","south"), 
+
+
+        to_Cascade("cascade", 1,4096,1, offset="(0,10,0)", to="(sum-north)", height=5, depth=112, width=5,caption='cascade'),
+        to_connection( "sum", "cascade","north","south"), 
+
+        to_FcRelu_fine("fc1", 1, 128,1, offset="(0,8,0)", to="(cascade-north)", height=5, depth=32, width=5,caption='fc1'),
+        to_connection( "cascade", "fc1","north","south"), 
+
+        to_FcRelu_fine("fc2", 1, 16,1, offset="(0,8,0)", to="(fc1-north)", height=5, depth=16, width=5,caption='fc1'),
+        to_connection( "fc1", "fc2","north","south"), 
+
+        to_SoftMax("softMax", 1 ,2,1, offset="(0,5,0)", to="(fc2-north)", height=3, depth=6, width=3, caption="SoftMax"  ),
+        to_connection( "fc2", "softMax","north","south"), 
+
+        to_end()
+        ]
+    to_generate(arch, os.getcwd()+'\\draw_houyi\\Net24\\Net24.tex' )
+    # end draw_Net24
+
+
 def draw_Net25():
     arch = [
         to_head( '..' ),
@@ -1313,8 +1479,10 @@ def draw_Net29():
 # 二分类
 # draw_Net2()
 # draw_Net22()
+# draw_Net23()
+draw_Net24()
 # draw_Net25()
 # draw_Net26()
-draw_Net27()
+# draw_Net27()
 # draw_Net28()
 # draw_Net29()

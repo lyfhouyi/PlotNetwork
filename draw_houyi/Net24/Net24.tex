@@ -1,0 +1,440 @@
+
+\documentclass[border=8pt, multi, tikz]{standalone} 
+\usepackage{import}
+\subimport{../../layers/}{init}
+\usetikzlibrary{positioning}
+\usetikzlibrary{3d} %for including external image 
+
+\def\ConvColor{rgb:yellow,5;red,2.5;white,5}
+\def\ConvReluColor{rgb:yellow,5;red,5;white,5}
+\def\PoolColor{rgb:red,1;black,0.3}
+\def\UnpoolColor{rgb:blue,2;green,1;black,0.3}
+\def\FcColor{rgb:blue,5;red,2.5;white,5}
+\def\FcReluColor{rgb:blue,5;red,5;white,4}
+\def\FcFineColor{rgb:green,10;red,2.5;black,3}
+\def\FcReluFineColor{rgb:green,10;red,6.5;black,3}
+\def\SoftmaxColor{rgb:green,10;black,7}   
+\def\SumColor{rgb:blue,5;green,15}
+
+\newcommand{\copymidarrow}{\tikz \draw[-Stealth,line width=0.8mm,draw={rgb:blue,4;red,1;green,1;black,3}] (-0.3,0) -- ++(0.3,0);}
+
+\begin{document}
+\begin{tikzpicture}
+\tikzstyle{connection}=[ultra thick,every node/.style={sloped,allow upside down},draw=\edgecolor,opacity=0.7]
+\tikzstyle{copyconnection}=[ultra thick,every node/.style={sloped,allow upside down},draw={rgb:blue,4;red,1;green,1;black,3},opacity=0.7]
+
+\pic[shift={(0,0,0)}] at (0,0,0) 
+    {Box={
+        name=input1,
+        caption=frame1,
+        xlabel=1,
+        ylabel=1,
+        zlabel=32,
+        fill=\ConvColor,
+        height=4,
+        width=4,
+        depth=32
+        }
+    };
+
+\pic[shift={(30,0,0)}] at (input1-east) 
+    {Box={
+        name=input4,
+        caption=frame4,
+        xlabel=1,
+        ylabel=1,
+        zlabel=32,
+        fill=\ConvColor,
+        height=4,
+        width=4,
+        depth=32
+        }
+    };
+
+\pic[shift={(30,0,0)}] at (input4-east) 
+    {Box={
+        name=input7,
+        caption=frame7,
+        xlabel=1,
+        ylabel=1,
+        zlabel=32,
+        fill=\ConvColor,
+        height=4,
+        width=4,
+        depth=32
+        }
+    };
+
+\pic[shift={ (0,12,0) }] at (input1-north) 
+    {Box={
+        name=node11,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=4,
+        width=4,
+        depth=16
+        }
+    };
+
+\pic[shift={(8,0,0)}] at (node11-east) 
+    {Ball={
+        name=transNode21,
+        fill=\SumColor,
+        opacity=0,
+        radius=0,
+        logo=$+$
+        }
+    };
+
+\pic[shift={(14,0,0)}] at (transNode21-east) 
+    {Ball={
+        name=transNode31,
+        fill=\SumColor,
+        opacity=0,
+        radius=0,
+        logo=$+$
+        }
+    };
+
+\pic[shift={ (30,0,0) }] at (node11-east) 
+    {Box={
+        name=node41,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=4,
+        width=4,
+        depth=16
+        }
+    };
+
+\pic[shift={(8,0,0)}] at (node41-east) 
+    {Ball={
+        name=transNode51,
+        fill=\SumColor,
+        opacity=0,
+        radius=0,
+        logo=$+$
+        }
+    };
+
+\pic[shift={(14,0,0)}] at (transNode51-east) 
+    {Ball={
+        name=transNode61,
+        fill=\SumColor,
+        opacity=0,
+        radius=0,
+        logo=$+$
+        }
+    };
+
+\pic[shift={ (30,0,0) }] at (node41-east) 
+    {Box={
+        name=node71,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=4,
+        width=4,
+        depth=16
+        }
+    };
+
+\draw [connection]  (node11-east)    -- node {\midarrow} (transNode21-west);
+
+\draw [connection]  (transNode31-east)    -- node {\midarrow} (node41-west);
+
+\draw [connection]  (node41-east)    -- node {\midarrow} (transNode51-west);
+
+\draw [connection]  (transNode61-east)    -- node {\midarrow} (node71-west);
+
+\draw [connection]  (input1-north)    -- node {\midarrow} (node11-south);
+
+\draw [connection]  (input4-north)    -- node {\midarrow} (node41-south);
+
+\draw [connection]  (input7-north)    -- node {\midarrow} (node71-south);
+
+\pic[shift={ (0,10,0) }] at (node11-north) 
+    {Box={
+        name=node12,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=4,
+        width=4,
+        depth=16
+        }
+    };
+
+\pic[shift={(8,0,0)}] at (node12-east) 
+    {Ball={
+        name=transNode22,
+        fill=\SumColor,
+        opacity=0,
+        radius=0,
+        logo=$+$
+        }
+    };
+
+\pic[shift={(14,0,0)}] at (transNode22-east) 
+    {Ball={
+        name=transNode32,
+        fill=\SumColor,
+        opacity=0,
+        radius=0,
+        logo=$+$
+        }
+    };
+
+\pic[shift={ (30,0,0) }] at (node12-east) 
+    {Box={
+        name=node42,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=4,
+        width=4,
+        depth=16
+        }
+    };
+
+\pic[shift={(8,0,0)}] at (node42-east) 
+    {Ball={
+        name=transNode52,
+        fill=\SumColor,
+        opacity=0,
+        radius=0,
+        logo=$+$
+        }
+    };
+
+\pic[shift={(14,0,0)}] at (transNode52-east) 
+    {Ball={
+        name=transNode62,
+        fill=\SumColor,
+        opacity=0,
+        radius=0,
+        logo=$+$
+        }
+    };
+
+\pic[shift={ (30,0,0) }] at (node42-east) 
+    {Box={
+        name=node72,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=4,
+        width=4,
+        depth=16
+        }
+    };
+
+\draw [connection]  (node12-east)    -- node {\midarrow} (transNode22-west);
+
+\draw [connection]  (transNode32-east)    -- node {\midarrow} (node42-west);
+
+\draw [connection]  (node42-east)    -- node {\midarrow} (transNode52-west);
+
+\draw [connection]  (transNode62-east)    -- node {\midarrow} (node72-west);
+
+\draw [connection]  (node11-north)    -- node {\midarrow} (node12-south);
+
+\draw [connection]  (node41-north)    -- node {\midarrow} (node42-south);
+
+\draw [connection]  (node71-north)    -- node {\midarrow} (node72-south);
+
+\pic[shift={ (0,10,0) }] at (node12-north) 
+    {Box={
+        name=node13,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=4,
+        width=4,
+        depth=16
+        }
+    };
+
+\pic[shift={(8,0,0)}] at (node13-east) 
+    {Ball={
+        name=transNode23,
+        fill=\SumColor,
+        opacity=0,
+        radius=0,
+        logo=$+$
+        }
+    };
+
+\pic[shift={(14,0,0)}] at (transNode23-east) 
+    {Ball={
+        name=transNode33,
+        fill=\SumColor,
+        opacity=0,
+        radius=0,
+        logo=$+$
+        }
+    };
+
+\pic[shift={ (30,0,0) }] at (node13-east) 
+    {Box={
+        name=node43,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=4,
+        width=4,
+        depth=16
+        }
+    };
+
+\pic[shift={(8,0,0)}] at (node43-east) 
+    {Ball={
+        name=transNode53,
+        fill=\SumColor,
+        opacity=0,
+        radius=0,
+        logo=$+$
+        }
+    };
+
+\pic[shift={(14,0,0)}] at (transNode53-east) 
+    {Ball={
+        name=transNode63,
+        fill=\SumColor,
+        opacity=0,
+        radius=0,
+        logo=$+$
+        }
+    };
+
+\pic[shift={ (30,0,0) }] at (node43-east) 
+    {Box={
+        name=node73,
+        caption=,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcColor,
+        height=4,
+        width=4,
+        depth=16
+        }
+    };
+
+\draw [connection]  (node13-east)    -- node {\midarrow} (transNode23-west);
+
+\draw [connection]  (transNode33-east)    -- node {\midarrow} (node43-west);
+
+\draw [connection]  (node43-east)    -- node {\midarrow} (transNode53-west);
+
+\draw [connection]  (transNode63-east)    -- node {\midarrow} (node73-west);
+
+\draw [connection]  (node12-north)    -- node {\midarrow} (node13-south);
+
+\draw [connection]  (node42-north)    -- node {\midarrow} (node43-south);
+
+\draw [connection]  (node72-north)    -- node {\midarrow} (node73-south);
+
+\pic[shift={(0,10,0)}] at (node43-north) 
+    {Ball={
+        name=sum,
+        fill=\SumColor,
+        opacity=0.6,
+        radius=2.5,
+        logo=$+$
+        }
+    };
+
+\draw [connection]  (node13-north)    -- node {\midarrow} (sum-south);
+
+\draw [connection]  (node43-north)    -- node {\midarrow} (sum-south);
+
+\draw [connection]  (node73-north)    -- node {\midarrow} (sum-south);
+
+\pic[shift={ (0,10,0) }] at (sum-north) 
+    {Box={
+        name=cascade,
+        caption=cascade,
+        xlabel=1,
+        ylabel=1,
+        zlabel=4096,
+        fill=\FcColor,
+        height=5,
+        width=5,
+        depth=112
+        }
+    };
+
+\draw [connection]  (sum-north)    -- node {\midarrow} (cascade-south);
+
+\pic[shift={ (0,8,0) }] at (cascade-north) 
+    {RightBandedBox={
+        name=fc1,
+        caption=fc1,
+        xlabel=1,
+        ylabel=1,
+        zlabel=128,
+        fill=\FcFineColor,
+        bandfill=\FcReluFineColor,
+        height=5,
+        width=5,
+        depth=32
+        }
+    };
+
+\draw [connection]  (cascade-north)    -- node {\midarrow} (fc1-south);
+
+\pic[shift={ (0,8,0) }] at (fc1-north) 
+    {RightBandedBox={
+        name=fc2,
+        caption=fc1,
+        xlabel=1,
+        ylabel=1,
+        zlabel=16,
+        fill=\FcFineColor,
+        bandfill=\FcReluFineColor,
+        height=5,
+        width=5,
+        depth=16
+        }
+    };
+
+\draw [connection]  (fc1-north)    -- node {\midarrow} (fc2-south);
+
+\pic[shift={(0,5,0)}] at (fc2-north) 
+    {Box={
+        name=softMax,
+        caption=SoftMax,
+        xlabel=1,
+        ylabel=1,
+        zlabel=2,
+        fill=\SoftmaxColor,
+        opacity=0.5,
+        height=3,
+        width=3,
+        depth=6
+        }
+    };
+
+\draw [connection]  (fc2-north)    -- node {\midarrow} (softMax-south);
+
+\end{tikzpicture}
+\end{document}
